@@ -18,6 +18,8 @@ class LUCSX():
     ch8_on_bytes = bytes([0xA0,0x08,0x01,0xA9])
     ch8_off_bytes = bytes([0xA0,0x08,0x00,0xA8])
 
+    ch_on = [ch1_on_bytes, ch2_on_bytes, ch3_on_bytes, ch4_on_bytes, ch5_on_bytes, ch6_on_bytes, ch7_on_bytes, ch8_on_bytes]
+    ch_off = [ch1_off_bytes, ch2_off_bytes, ch3_off_bytes, ch4_off_bytes, ch5_off_bytes, ch6_off_bytes, ch7_off_bytes, ch8_off_bytes]
 
     def __init__(self,port_name = "COM4"):
         self.com = Serial(port=port_name, baudrate=9600)
@@ -158,3 +160,19 @@ class LUCSX():
             return True
         except:
             return False
+        
+    def ch_on(self, channel):
+        try:
+            write_buffer = self.ch_on[channel]
+            self.com.write(write_buffer)
+            return True
+        except:
+            return False
+         
+    def ch_off(self, channel):
+        try:
+            write_buffer = self.ch_off[channel]
+            self.com.write(write_buffer)
+            return True
+        except:
+            return False 
